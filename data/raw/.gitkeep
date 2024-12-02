@@ -1,0 +1,24 @@
+import os
+import pandas as pd 
+
+# Definimos las URLs y las rutas de guardado
+urls_and_paths = {
+    "movies": {
+        "url": "https://raw.githubusercontent.com/4GeeksAcademy/k-nearest-neighbors-project-tutorial/main/tmdb_5000_movies.csv",
+        "save_path": "data/raw/tmdb_5000_movies.csv"
+    },
+    "credits": {
+        "url": "https://raw.githubusercontent.com/4GeeksAcademy/k-nearest-neighbors-project-tutorial/main/tmdb_5000_credits.csv",
+        "save_path": "data/raw/tmdb_5000_credits.csv"
+    }
+}
+
+for key, value in urls_and_paths.items():
+    url = value["url"]
+    save_path = os.path.join(os.getcwd(), value["save_path"])
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    
+    dfs = pd.read_csv(url)
+    dfs.to_csv(save_path, index=False)
+    
+    print(f"{key} saved at {save_path}")
